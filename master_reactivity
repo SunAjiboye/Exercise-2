@@ -1,0 +1,123 @@
+# **🚀 Shiny Reactivity Intensive Exercise**
+
+## **📌 Overview**
+Welcome to this intensive exercise for **Session 3: Mastering Shiny Reactivity**! This activity will test your understanding of reactive programming in Shiny, including key functions like `reactive()`, `eventReactive()`, `observe()`, `observeEvent()`, and `reactiveValues()`. You’ll solve coding challenges, answer conceptual questions, and apply what you’ve learned to build and debug reactive Shiny apps. Get ready to dive deep and master reactivity!
+
+---
+
+## **📌 Instructions**
+1. **Create a new folder** named `master_reactivity` in your GitHub repository.
+2. **Save all scripts and files** for this exercise in the `master_reactivity` folder.
+3. **Answer all conceptual questions** in a Markdown file named `reactivity_exercise_answers.md` within the `master_reactivity` folder.
+4. **Push your changes to GitHub** and submit your repository link for review.
+
+---
+
+## **📌 Part 1: Conceptual Questions **
+Answer the following questions in `reactivity_exercise_answers.md`. Use **headers or numbering** to match responses to questions.
+
+1. What is the primary difference between `reactive()` and `eventReactive()` in Shiny? When would you choose one over the other?
+2. How does `observe()` differ from `observeEvent()` in terms of functionality? Provide an example scenario for each.
+3. Why is `reactiveValues()` necessary for certain Shiny applications? What happens if you try to use `reactive()` instead for persistent state?
+4. What error might occur if you attempt to use reactive content outside of a reactive context, and why does this happen?
+5. Explain how Shiny ensures outputs update automatically when inputs change, without requiring manual updates.
+
+---
+
+## **📌 Part 2: Coding Exercise 1 - Build a Reactive App **
+### **🔹 Task:**
+Create a Shiny app that demonstrates the following **reactivity features**. Save your app as `reactivity_exercise1.R` in the `master_reactivity` folder.
+
+### **🔹 Requirements:**
+- Use the **iris dataset** as the data source.
+- Build an app with a UI that includes:
+  - A `selectInput()` to choose a species from `iris$Species`.
+  - A `sliderInput()` to select a range of **Sepal.Length** values.
+  - An `actionButton()` labeled "Filter Data".
+- Implement the server logic to:
+  - Use `reactive()` to filter iris based on the selected species (updates instantly).
+  - Use `eventReactive()` to filter iris further **only when** "Filter Data" is clicked.
+  - Use `observe()` to **log each species selection change** in the console.
+  - Display the filtered dataset using `renderTable()`.
+- Ensure the app **handles missing or invalid inputs gracefully**.
+
+✅ **Deliverable:**
+- Save `reactivity_exercise1.R` in `master_reactivity`.
+- Add a comment explaining why each reactive function was chosen.
+- Commit and push to GitHub.
+
+---
+
+## **📌 Part 3: Coding Exercise 2 - Manage State with `reactiveValues()`**
+### **🔹 Task:**
+Create a Shiny app that demonstrates **state management** using `reactiveValues()`. Save your app as `reactivity_exercise2.R` in the `master_reactivity` folder.
+
+### **🔹 Requirements:**
+- Build an app with a UI that includes:
+  - A `textInput()` for users to enter their name.
+  - Two `actionButton()` elements: "Add Score" and "Reset Score".
+- Implement the server logic to:
+  - Use `reactiveValues()` to store `score` (starts at `0`) and `user_name` (starts empty).
+  - Use `observeEvent()` to:
+    - Increase `score` when "Add Score" is clicked.
+    - Reset `score` when "Reset Score" is clicked.
+    - Update `user_name` **only if non-empty**.
+  - Display the **current score and user name** using `renderText()`.
+- Ensure the app **maintains state across interactions**.
+
+✅ **Deliverable:**
+- Save `reactivity_exercise2.R` in `master_reactivity`.
+- Add a comment explaining why `reactiveValues()` was chosen.
+- Commit and push to GitHub.
+
+---
+
+## **📌 Part 4: Debugging Challenge**
+### **🔍 Task:**
+Fix reactivity issues in the **provided Shiny app** (`debug_reactivity.R`). Save the corrected version as `debug_reactivity_fixed.R` in `master_reactivity`.
+
+### **🔹 Provided Code (With Bugs):**
+```r
+library(shiny)
+
+ui <- fluidPage(
+  selectInput("species", "Choose Species:", choices = unique(iris$Species)),
+  actionButton("update", "Update Data"),
+  tableOutput("filtered_data")
+)
+
+server <- function(input, output, session) {
+  filtered <- reactive({
+    iris[iris$Species == input$species, ]
+  })
+  
+  filtered_event <- eventReactive(input$update, {
+    filtered()
+  })
+  
+  output$filtered_data <- renderTable({
+    filtered_event()
+  })
+}
+
+shinyApp(ui, server)
+```
+
+### **🔹 Task:**
+1. Identify at least **two reactivity issues**.
+2. Fix them and explain the changes in **comments** at the top of `debug_reactivity_fixed.R`.
+
+✅ **Deliverable:**
+- Save `debug_reactivity_fixed.R` in `master_reactivity`.
+- Commit and push to GitHub.
+
+---
+
+## **📌 Part 5: Implement Reactivity in your App**
+
+Continue improving your shiny application using the new concept you have just learned.
+Make sure to review your code and update the part that you think can be improved using the new concept you have learned.
+
+---
+
+🚀 **Good luck! Mastering reactivity will take your Shiny apps to the next level!** 🎯
