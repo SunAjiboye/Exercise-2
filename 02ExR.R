@@ -145,7 +145,7 @@ server <- function(input, output) {
     x <- faithful$waiting
     ggplot(data.frame(x), aes(x)) +
       geom_density(fill = input$color, alpha = 0.5) +
-      labs(title = "Density Plot of Waiting Times", x = "Waiting Time (mins)", y = "Density") +
+      labs(title = "Densiity Plot of Waiting Times", x = "Waiting Time (mins)", y = "Density") +
       theme_choice()
   })
   
